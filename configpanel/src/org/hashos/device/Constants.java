@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
- *           (C) 2017-2018 The LineageOS Project
+ * Copyright (C) 2018 HashOS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.device;
+package org.hashos.device;
 
-import org.lineageos.internal.util.FileUtils;
+import org.hashos.device.utils.FileUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +29,8 @@ public class Constants {
     // Preference keys
     public static final String BUTTON_SWAP_KEY = "button_swap";
     public static final String FP_HOME_KEY = "fp_home";
-    public static final String FP_POCKETMODE_KEY = "fp_pocketmode";
     public static final String FP_WAKEUP_KEY = "fp_wakeup";
+    public static final String DT2W_KEY = "dt2w";
 
     // Nodes
     public static final String CYTTSP_BUTTON_SWAP_NODE = "/proc/buttons/reversed_keys_enable";
@@ -39,9 +38,10 @@ public class Constants {
     public static final String FP_WAKEUP_NODE = "/sys/devices/soc/soc:fpc_fpc1020/enable_wakeup";
     public static final String TOUCHPANEL_BUTTON_SWAP_NODE = "/proc/touchpanel/reversed_keys_enable";
     public static final String VIRTUAL_KEYS_NODE = "/proc/touchpanel/capacitive_keys_enable";
+    public static final String DT2W_NODE = "/proc/touchpanel/double_tap_enable";
 
     // Intents
-    public static final String CUST_INTENT = "org.lineageos.settings.device.CUST_UPDATE";
+    public static final String CUST_INTENT = "org.hashos.device.CUST_UPDATE";
     public static final String CUST_INTENT_EXTRA = "pocketmode_service";
 
     // Holds <preference_key> -> <proc_node> mapping
@@ -60,7 +60,8 @@ public class Constants {
     public static final String[] sButtonPrefKeys = {
         BUTTON_SWAP_KEY,
         FP_HOME_KEY,
-        FP_WAKEUP_KEY
+        FP_WAKEUP_KEY,
+        DT2W_KEY
     };
 
     static {
@@ -71,8 +72,10 @@ public class Constants {
         }
         sBooleanNodePreferenceMap.put(FP_HOME_KEY, FP_HOME_KEY_NODE);
         sBooleanNodePreferenceMap.put(FP_WAKEUP_KEY, FP_WAKEUP_NODE);
+        sBooleanNodePreferenceMap.put(DT2W_KEY, DT2W_NODE);
 
         sNodeDefaultMap.put(BUTTON_SWAP_KEY, false);
+        sNodeDefaultMap.put(DT2W_KEY, false);
         sNodeDefaultMap.put(FP_HOME_KEY, false);
         sNodeDefaultMap.put(FP_WAKEUP_KEY, true);
 

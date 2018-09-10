@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2016 The CyanogenMod Project
-               (C) 2017 The LineageOS Project
+     Copyright (C) 2018 HashOS
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -36,11 +35,16 @@
             android:title="@string/fingerprint_wakeup_title"
             android:summary="@string/fingerprint_wakeup_summary" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="gestures_key"
+        android:title="@string/gestures_title" >
+
         <SwitchPreference
-            android:key="fp_pocketmode"
-            android:title="@string/fingerprint_pocketmode_title"
-            android:summary="@string/fingerprint_pocketmode_summary"
-            android:dependency="fp_wakeup" />
+            android:key="dt2w"
+            android:title="@string/dt2w_title"
+            android:summary="@string/dt2w_summary" />
 
     </PreferenceCategory>
 

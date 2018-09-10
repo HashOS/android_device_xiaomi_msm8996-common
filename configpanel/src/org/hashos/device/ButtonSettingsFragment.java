@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
- *           (C) 2017 The LineageOS Project
+ * Copyright (C) 2018 HashOS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.device;
+package org.hashos.device;
 
 import android.app.ActionBar;
 import android.content.SharedPreferences;
@@ -30,8 +29,8 @@ import android.support.v7.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import org.lineageos.internal.util.FileUtils;
-import org.lineageos.internal.util.PackageManagerUtils;
+import org.hashos.device.utils.FileUtils;
+import org.hashos.device.utils.PackageManagerUtils;
 
 public class ButtonSettingsFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {
@@ -58,7 +57,6 @@ public class ButtonSettingsFragment extends PreferenceFragment
             Boolean value = (Boolean) newValue;
             FileUtils.writeLine(node, value ? "1" : "0");
             if (Constants.FP_WAKEUP_KEY.equals(preference.getKey())) {
-                value &= prefs.getBoolean(Constants.FP_POCKETMODE_KEY, false);
                 Utils.broadcastCustIntent(getContext(), value);
             }
             return true;
@@ -66,11 +64,6 @@ public class ButtonSettingsFragment extends PreferenceFragment
         node = Constants.sStringNodePreferenceMap.get(preference.getKey());
         if (!TextUtils.isEmpty(node) && FileUtils.isFileWritable(node)) {
             FileUtils.writeLine(node, (String) newValue);
-            return true;
-        }
-
-        if (Constants.FP_POCKETMODE_KEY.equals(preference.getKey())) {
-            Utils.broadcastCustIntent(getContext(), (Boolean) newValue);
             return true;
         }
 
@@ -108,13 +101,6 @@ public class ButtonSettingsFragment extends PreferenceFragment
         // Initialize other preferences whose keys are not associated with nodes
         final PreferenceCategory fingerprintCategory =
                 (PreferenceCategory) getPreferenceScreen().findPreference(Constants.CATEGORY_FP);
-
-        SwitchPreference b = (SwitchPreference) findPreference(Constants.FP_POCKETMODE_KEY);
-        if (!PackageManagerUtils.isAppInstalled(getContext(), "org.lineageos.pocketmode")) {
-            fingerprintCategory.removePreference(b);
-        } else {
-            b.setOnPreferenceChangeListener(this);
-        }
 
         // Hide fingerprint features if the device doesn't support them
         if (!FileUtils.fileExists(Constants.FP_HOME_KEY_NODE) &&

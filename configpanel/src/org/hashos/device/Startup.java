@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
- *           (C) 2017-2018 The LineageOS Project
+ * Copyright (C) 2018 HashOS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.device;
+package org.hashos.device;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -26,7 +25,7 @@ import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
-import org.lineageos.internal.util.FileUtils;
+import org.hashos.device.utils.FileUtils;
 
 public class Startup extends BroadcastReceiver {
 
@@ -35,7 +34,8 @@ public class Startup extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
-        if (lineageos.content.Intent.ACTION_INITIALIZE_LINEAGE_HARDWARE.equals(action)) {
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)
+                || Intent.ACTION_PRE_BOOT_COMPLETED.equals(action)) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
             // Disable button settings if needed
@@ -62,8 +62,7 @@ public class Startup extends BroadcastReceiver {
 
                 // Send initial broadcasts
                 final boolean shouldEnablePocketMode =
-                        prefs.getBoolean(Constants.FP_WAKEUP_KEY, false) &&
-                        prefs.getBoolean(Constants.FP_POCKETMODE_KEY, false);
+                        prefs.getBoolean(Constants.FP_WAKEUP_KEY, false);
                 Utils.broadcastCustIntent(context, shouldEnablePocketMode);
             }
         }
