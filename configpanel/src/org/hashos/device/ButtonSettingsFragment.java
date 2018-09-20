@@ -17,8 +17,10 @@
 package org.hashos.device;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v14.preference.SwitchPreference;
 import android.support.v7.preference.ListPreference;
@@ -35,9 +37,30 @@ import org.hashos.device.utils.PackageManagerUtils;
 public class ButtonSettingsFragment extends PreferenceFragment
         implements OnPreferenceChangeListener {
 
+    private static final String KEY_HOMEBUTTON_SWITCH = "homebutton_switch";
+
+    private SwitchPreference mHomeButtonSwitch;
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.button_panel);
+
+        SwitchPreference mHomeButtonSwitch = (SwitchPreference) findPreference(KEY_HOMEBUTTON_SWITCH);
+        mHomeButtonSwitch.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.HASH_BUTTON_EXTRA_KEY_MAPPING, 0) != 0);
+
+       mHomeButtonSwitch.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+             @Override
+             public boolean onPreferenceClick(Preference preference) {
+                 if (preference == mHomeButtonSwitch) {
+                     Settings.System.putInt(getActivity().getContentResolver(),
+                             Settings.System.HASH_BUTTON_EXTRA_KEY_MAPPING, mHomeButtonSwitch.isChecked() ? 1 : 0);
+                     return true;
+                 }
+                 return false;
+             }
+        });
+
         final ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }

@@ -14,7 +14,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Category title -->
-    <string name="graphics_title">Graphics</string>
+    <string name="buttons_title">Hadware Buttons</string>
 
     <!-- Application title -->
     <string name="device_settings_app_name">Device Features</string>
@@ -36,4 +36,8 @@
     <string name="fingerprint_as_home_summary">Use the fingerprint sensor as a home button</string>
     <string name="fingerprint_wakeup_title">Fingerprint wake-up</string>
     <string name="fingerprint_wakeup_summary">Allow the fingerprint sensor to wake the device while the screen is off</string>
+
+    <!-- Home Wake -->
+    <string name="button_home_wake_title">Home button wake</string>
+    <string name="button_home_wake_summary">Pressing the home button will wake the device</string>
 </resources>

@@ -34,6 +34,9 @@ public class Startup extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
+
+        KeyHandler.setButtonSetting(context);
+
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_PRE_BOOT_COMPLETED.equals(action)) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
